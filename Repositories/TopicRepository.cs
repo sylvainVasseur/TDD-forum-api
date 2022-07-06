@@ -11,28 +11,50 @@ namespace forum_api.Repositories
             _context = context;
         }
 
-        public virtual Topic FindAll()
-        {
-            _context.Topics.
-        }
+        //public virtual Topic FindAll()
+        //{
+        //    return _context.Topics.SelectMany(t => t.Topics).ToList();
+        //}
 
         public virtual Topic FindById(int id)
         {
-            _context.Topics.
+            if (_context.Topics.Find(id) == null)
+            {
+                throw new Exception($"Aucun topic avec l'id {id}, n'a été trouvé.");
+            }
+            else
+            {
+                return _context.Topics.Find(id);
+            }
         }
 
         public virtual Topic DeleteById(int id)
         {
+            if (_context.Topics.Find(id) == null)
+            {
+                throw new Exception($"Aucun topic avec l'id {id}, n'a été trouvé.");
+            }
+            else
+            {
+                var topic = _context.Topics.Find(id);
+                _context.Topics.Remove(_context.Topics.Find(id));
+
+                return topic;
+            }
 
         }
-        public virtual Topic UpdateById(int id)
+        public virtual Topic UpdateTopic(int id , Topic topic)
         {
-
+            _context.Topics.Update(topic);
+            _context.SaveChanges();
+            return topic;
         }
 
         public virtual Topic Create(Topic topic)
         {
-
+            _context.Topics.Add(topic);
+            _context.SaveChanges();
+            return topic;
         }
     }
 }

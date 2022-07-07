@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-//using forum_api.Services;
+using forum_api.Services;
 using Microsoft.AspNetCore.Http;
 
 namespace forum_api.Controllers
@@ -10,7 +10,7 @@ namespace forum_api.Controllers
     {
         private forum_api db;
 
-        private readonly CommentService _services;
+        private readonly ICommentService _services;
 
         public TopicController(forum_api injectedContext)
         {

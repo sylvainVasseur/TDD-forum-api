@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-//using forum_api.Services;
+using forum_api.Services;
 using Microsoft.AspNetCore.Http;
 
 
@@ -9,13 +9,12 @@ namespace forum_api.Controllers
     [Route("[controller]")]
     public class CommentController : ControllerBase
     {
-        private forum_api db;
 
-        private readonly CommentService _services;
+        private readonly ICommentService _services;
 
-        public CommentController(forum_api injectedContext)
+        public CommentController(ICommentService _service)
         {
-            db = injectedContext;
+            _service = service;
         }
 
         [HttpGet]

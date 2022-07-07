@@ -13,7 +13,7 @@ namespace forum_api.Services
 
         public void CreateComment(Comment comment)
         {
-            comment.CreationDate = DateOnly.FromDateTime(DateTime.Now);
+            comment.CreationDate = DateTime.Now;
             _repository.CreateComment(comment);
         }
 
@@ -44,7 +44,7 @@ namespace forum_api.Services
 
         public void UpdateComment(Comment comment)
         {
-            comment.ModificationDate = DateOnly.FromDateTime(DateTime.Now);
+            comment.ModificationDate = DateTime.Now;
             _repository.UpdateComment(comment);
         }
     }

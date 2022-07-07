@@ -12,15 +12,16 @@ namespace forum_api.Services
             _repository = repository;
         }
 
-        public void CreateTopic(Topic topic)
+        public Topic CreateTopic(Topic topic)
         {
-            topic.CreationDate = DateOnly.FromDateTime(DateTime.Now);
-            _repository.CreateTopic(topic);
+            topic.CreationDate = DateTime.Now;
+            return _repository.CreateTopic(topic);
         }
 
         public void DeleteById(int id)
         {
-            _repository.DeleteById(id);
+            _= this.FindById(id);
+            this._repository.DeleteById(id);
         }
 
         public IEnumerable<Topic> FindAllTopics()
@@ -40,7 +41,7 @@ namespace forum_api.Services
 
         public void UpdateTopic(Topic topic)
         {
-            topic.ModificationDate = DateOnly.FromDateTime(DateTime.Now);
+            topic.ModificationDate = DateTime.Now;
             _repository.UpdateTopic(topic);
         }
     }

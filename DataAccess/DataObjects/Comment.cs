@@ -7,11 +7,9 @@ namespace forum_api.DataAccess.DataObjects
     {
         public int IdComment { get; set; }
         public string Username { get; set; } = null!;
-        public DateOnly CreationDate { get; set; }
-        public DateOnly ModificationDate { get; set; }
+        public DateTime CreationDate { get; set; }
+        public DateTime ModificationDate { get; set; }
         public string Content { get; set; } = null!;
         public int TopicIdtopic { get; set; }
-
-        public virtual Topic TopicIdtopicNavigation { get; set; } = null!;
     }
 }

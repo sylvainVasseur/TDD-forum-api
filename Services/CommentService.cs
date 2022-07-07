@@ -6,15 +6,23 @@ namespace forum_api.Services
     public class CommentService : ICommentService
     {
         private ICommentRepository _repository;
-        public CommentService(ICommentRepository repository)
+        public CommentService(ICommentRepository repository, ITopicService _topicService)
         {
             _repository = repository;
         }
 
         public void CreateComment(Comment comment)
         {
-            comment.CreationDate = DateTime.Now;
-            _repository.CreateComment(comment);
+            if (comment == null)
+            {
+                throw new Exception($"Le comment est null.");
+            }
+            else
+            {
+                comment.CreationDate = DateTime.Now;
+                _repository.CreateComment(comment);
+            }
+            
         }
 
         public void DeleteComment(int id)

@@ -18,35 +18,38 @@ namespace forum_api.Repositories
         //Find By ID topic
         public Comment FindById(int id)
         {
-            if (_context.Comments.SingleOrDefault(c => c.IdComment == id) == null)
+            var comment = _context.Comments.SingleOrDefault(c => c.IdComment == id);
+            if (comment == null)
             {
                 throw new Exception($"Aucun topic avec l'id {id}, n'a été trouvé.");
             }
             else
-                return _context.Comments.SingleOrDefault(c => c.IdComment == id);
+                return comment;
         }
 
         public void DeleteById(int id)
         {
-            if (_context.Comments.SingleOrDefault(c => c.IdComment == id) == null)
+            var comment = _context.Comments.SingleOrDefault(c => c.IdComment == id);
+            if (comment == null)
             {
                 throw new Exception($"Aucun topic avec l'id {id}, n'a été trouvé.");
             }
             else
             {
-                var comment = _context.Comments.SingleOrDefault(c => c.IdComment == id);
                 _context.Comments.Remove(comment);
                 _context.SaveChanges();
             }
         }
-        public virtual Comment UpdateById(int id)
+        public void UpdateComment(int id, Comment comment)
         {
-
+            _context.Comments.Update(comment);
+            _context.SaveChanges();
         }
 
-        public virtual Comment Create(Comment comment)
+        public void Create(Comment comment)
         {
-
+            _context.Comments.Add(comment);
+            _context.SaveChanges();
         }
     }
 }

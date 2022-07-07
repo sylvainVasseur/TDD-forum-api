@@ -38,18 +38,16 @@ namespace forum_api.Repositories
             }
 
         }
-        public virtual Topic UpdateTopic(int id , Topic topic)
+        public void UpdateTopic(Topic topic)
         {
             _context.Topics.Update(topic);
             _context.SaveChanges();
-            return topic;
         }
 
-        public virtual Topic Create(Topic topic)
+        public void Create(Topic topic)
         {
             _context.Topics.Add(topic);
             _context.SaveChanges();
-            return topic;
         }
     }
 }

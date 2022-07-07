@@ -2,7 +2,7 @@
 
 namespace forum_api.Repositories
 {
-    public class CommentRepository
+    public class CommentRepository : ICommentRepository
     {
         private forumdbContext _context;
 
@@ -10,12 +10,17 @@ namespace forum_api.Repositories
         {
             _context = context;
         }
+        public List<Comment> FindByTopicId(int TpId)
+        {
+            List<Comment> comments = _context.Comments.Where(c => c.TopicIdtopic == TpId).ToList();
+            return comments;
+        }
         public Comment FindById(int id)
         {
             var comment = _context.Comments.SingleOrDefault(c => c.IdComment == id);
             if (comment == null)
             {
-                throw new Exception($"Aucun topic avec l'id {id}, n'a été trouvé.");
+                throw new Exception($"Aucun comment avec l'id {id}, n'a été trouvé.");
             }
             else
                 return comment;
@@ -26,7 +31,7 @@ namespace forum_api.Repositories
             var comment = _context.Comments.SingleOrDefault(c => c.IdComment == id);
             if (comment == null)
             {
-                throw new Exception($"Aucun topic avec l'id {id}, n'a été trouvé.");
+                throw new Exception($"Aucun comment avec l'id {id}, n'a été trouvé.");
             }
             else
             {
@@ -34,13 +39,13 @@ namespace forum_api.Repositories
                 _context.SaveChanges();
             }
         }
-        public void UpdateComment(int id, Comment comment)
+        public void UpdateComment( Comment comment)
         {
             _context.Comments.Update(comment);
             _context.SaveChanges();
         }
 
-        public void Create(Comment comment)
+        public void CreateComment(Comment comment)
         {
             _context.Comments.Add(comment);
             _context.SaveChanges();

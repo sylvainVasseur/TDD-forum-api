@@ -8,12 +8,12 @@ namespace forum_api.Services
         private ICommentRepository _repository;
         public CommentService(ICommentRepository repository)
         {
-            this._repository = repository;
+            _repository = repository;
         }
 
         public void CreateComment(Comment comment)
         {
-            comment.ModificationDate = DateOnly.FromDateTime(DateTime.Now);
+            comment.CreationDate = DateOnly.FromDateTime(DateTime.Now);
             _repository.CreateComment(comment);
         }
 

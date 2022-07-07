@@ -2,7 +2,7 @@
 
 namespace forum_api.Repositories
 {
-    public class TopicRepository
+    public class TopicRepository : ITopicRepository
     {
         private forumdbContext _context;
 
@@ -22,6 +22,19 @@ namespace forum_api.Repositories
             {
                 return topic;
             }
+        }
+        public IEnumerable<Topic> FindAllTopics()
+        {
+            List<Topic> topics = _context.Topics.ToList();
+
+            if (topics != null)
+            {
+                foreach (var topic in topics)
+                {
+                    topic.Comments = _context.Comments.Where(com => com.TopicIdtopic == topic.Idtopic).ToList();
+                }
+            }
+            return topics;
         }
 
         public void DeleteById(int id)
@@ -44,7 +57,7 @@ namespace forum_api.Repositories
             _context.SaveChanges();
         }
 
-        public void Create(Topic topic)
+        public void CreateTopic(Topic topic)
         {
             _context.Topics.Add(topic);
             _context.SaveChanges();

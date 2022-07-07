@@ -44,5 +44,6 @@ namespace forum_api.Services
             topic.ModificationDate = DateTime.Now;
             _repository.UpdateTopic(topic);
         }
+
     }
 }

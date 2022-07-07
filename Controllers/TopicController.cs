@@ -1,54 +1,81 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using forum_api.Services;
-using Microsoft.AspNetCore.Http;
+using forum_api.DataAccess.DataObjects;
 
 namespace forum_api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class TopicController : ControllerBase
     {
-        private forum_api db;
+        private readonly ITopicService _service;
 
-        private readonly ICommentService _services;
-
-        public TopicController(forum_api injectedContext)
+        public TopicController(ITopicService service)
         {
-            db = injectedContext;
+            _service = service;
         }
 
         [HttpGet]
-        public IActionResult FindAll()
+        public IEnumerable<Topic> FindAllTopics()
         {
-            return Ok(this._service.FindAll());
+            return _service.FindAllTopics();
         }
 
         [HttpGet("{id}")]
-        public IActionResult FindById(string id)
+        public IActionResult FindById(int id)
         {
-            return Ok(this._service.FindById(id));
+            try
+            {
+                return Ok(_service.FindById(id));
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
 
         [HttpPost]
-        public IActionResult Create(Topic topic)
+        public IActionResult CreateTopic(Topic topic)
         {
-            this._service.Create(topic);
-            return Ok("Created");
+            try
+            {
+                Topic topicCreation = _service.CreateTopic(topic);
+                return CreatedAtAction(nameof(FindById), new { id = topicCreation.Idtopic }, topicCreation);
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public IActionResult DeleteById(int id)
         {
-            this._service.DeleteById(id);
-            return Ok("Deleted");
+            try
+            {
+                _service.DeleteById(id);
+                return Ok("Deleted");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
         }
 
         [HttpPut]
-        public IActionResult Update(string id, Comment comment)
+        public IActionResult UpdateTopic(Topic topic)
         {
-            this._service.UpdateComment(id, comment);
-            return Ok("Updated");
+            try
+            {
+                _service.UpdateTopic(topic);
+                return Ok("Updated");
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }

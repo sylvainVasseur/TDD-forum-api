@@ -11,8 +11,8 @@ namespace forum_api.DataAccess.DataObjects
         }
 
         public int Idtopic { get; set; }
-        public DateOnly CreationDate { get; set; }
-        public DateOnly ModificationDate { get; set; }
+        public DateTime CreationDate { get; set; }
+        public DateTime ModificationDate { get; set; }
         public string Title { get; set; } = null!;
         public string CreatorName { get; set; } = null!;
 

@@ -51,19 +51,23 @@ namespace forum_api.DataAccess.DataObjects
                     .HasMaxLength(500)
                     .HasColumnName("content");
 
-                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("creation_date");
 
-                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
+                entity.Property(e => e.ModificationDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("modification_date");
 
                 entity.Property(e => e.Username)
                     .HasMaxLength(45)
                     .HasColumnName("username");
 
-                entity.HasOne(d => d.TopicIdtopicNavigation)
-                    .WithMany(p => p.Comments)
-                    .HasForeignKey(d => d.TopicIdtopic)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_comment_topic");
+                //entity.HasOne(d => d.TopicIdtopicNavigation)
+                //    .WithMany(p => p.Comments)
+                //    .HasForeignKey(d => d.TopicIdtopic)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("fk_comment_topic");
             });
 
             modelBuilder.Entity<Topic>(entity =>
@@ -78,13 +82,17 @@ namespace forum_api.DataAccess.DataObjects
 
                 entity.Property(e => e.Idtopic).HasColumnName("idtopic");
 
-                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("creation_date");
 
                 entity.Property(e => e.CreatorName)
                     .HasMaxLength(45)
                     .HasColumnName("creator_name");
 
-                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
+                entity.Property(e => e.ModificationDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("modification_date");
 
                 entity.Property(e => e.Title)
                     .HasMaxLength(100)

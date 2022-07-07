@@ -13,15 +13,12 @@ namespace forum_api.Repositories
 
         public virtual Topic FindById(int id)
         {
-            var topic = _context.Topics.SingleOrDefault(c => c.Idtopic == id);
-            if (topic == null)
+            Topic topic = _context.Topics.Find(id);
+            if (topic != null)
             {
-                throw new Exception($"Aucun topic avec l'id {id}, n'a été trouvé.");
+                topic.Comments = _context.Comments.Where(commentaire => commentaire.TopicIdtopic == topic.Idtopic).ToList();
             }
-            else
-            {
-                return topic;
-            }
+            return topic;
         }
         public IEnumerable<Topic> FindAllTopics()
         {
@@ -39,16 +36,10 @@ namespace forum_api.Repositories
 
         public void DeleteById(int id)
         {
-            var topic = _context.Topics.SingleOrDefault(c => c.Idtopic == id);
-            if (topic == null)
-            {
-                throw new Exception($"Aucun topic avec l'id {id}, n'a été trouvé.");
-            }
-            else
-            {
-                
-                _context.Topics.Remove(topic);
-            }
+            Topic topic = _context.Topics.Find(id);
+            _context.Topics.Remove(topic);
+            _context.SaveChanges();
+
 
         }
         public void UpdateTopic(Topic topic)
@@ -57,10 +48,11 @@ namespace forum_api.Repositories
             _context.SaveChanges();
         }
 
-        public void CreateTopic(Topic topic)
+        public Topic CreateTopic(Topic topic)
         {
             _context.Topics.Add(topic);
             _context.SaveChanges();
+            return topic;
         }
     }
 }

@@ -8,6 +8,6 @@ namespace forum_api.Services
         IEnumerable<Topic> FindAllTopics();
         void DeleteById(int id);
         void UpdateTopic(Topic topic);
-        void CreateTopic(Topic topic);
+        Topic CreateTopic(Topic topic);
     }
 }

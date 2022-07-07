@@ -10,12 +10,6 @@ namespace forum_api.Repositories
         {
             _context = context;
         }
-        //public virtual Comment FindAll()
-        //{
-
-        //}
-
-        //Find By ID topic
         public Comment FindById(int id)
         {
             var comment = _context.Comments.SingleOrDefault(c => c.IdComment == id);

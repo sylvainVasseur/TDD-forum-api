@@ -6,8 +6,8 @@ namespace forum_api.Repositories
     {
         Topic FindById(int id);
         IEnumerable<Topic> FindAllTopics();
-        void DeleteById(int id);
-        void UpdateTopic(Topic topic);
+        Topic DeleteById(int id);
+        Topic UpdateTopic(Topic topic);
         Topic CreateTopic(Topic topic);
     }
 }

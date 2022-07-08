@@ -6,8 +6,8 @@ namespace forum_api.Services
     {
         Comment FindById(int id);
         List<Comment> FindByTopicId(int TpId);
-        void CreateComment(Comment comment);
-        void UpdateComment(Comment comment);
-        void DeleteComment(int id);
+        Comment CreateComment(Comment comment);
+        Comment UpdateComment(Comment comment);
+        Comment DeleteComment(int id);
     }
 }

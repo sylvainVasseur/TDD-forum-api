@@ -26,7 +26,7 @@ namespace forum_api.Repositories
                 return comment;
         }
 
-        public void DeleteById(int id)
+        public Comment DeleteById(int id)
         {
             var comment = _context.Comments.SingleOrDefault(c => c.IdComment == id);
             if (comment == null)
@@ -37,18 +37,21 @@ namespace forum_api.Repositories
             {
                 _context.Comments.Remove(comment);
                 _context.SaveChanges();
+                return comment;
             }
         }
-        public void UpdateComment( Comment comment)
+        public Comment UpdateComment( Comment comment)
         {
             _context.Comments.Update(comment);
             _context.SaveChanges();
+            return comment;
         }
 
-        public void CreateComment(Comment comment)
+        public Comment CreateComment(Comment comment)
         {
             _context.Comments.Add(comment);
             _context.SaveChanges();
+            return comment;
         }
     }
 }

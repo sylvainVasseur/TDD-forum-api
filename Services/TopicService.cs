@@ -24,10 +24,7 @@ namespace forum_api.Services
             {
                 topic.CreationDate = DateTime.Now;
                 topic.Title = _wordFilterService.WordFilterSentence(topic.Title);
-                foreach (var comment in topic.Comments)
-                {
-                    comment.Content = _wordFilterService.WordFilterSentence(comment.Content);
-                }
+                topic.Comments = new List<Comment>();
                 return _repository.CreateTopic(topic);
             }
         }
@@ -69,10 +66,6 @@ namespace forum_api.Services
             }
             topic.ModificationDate = DateTime.Now;
             topic.Title = _wordFilterService.WordFilterSentence(topic.Title);
-            foreach (var comment in topic.Comments)
-            {
-                comment.Content = _wordFilterService.WordFilterSentence(comment.Content);
-            }
 
             return _repository.UpdateTopic(topic);
         }

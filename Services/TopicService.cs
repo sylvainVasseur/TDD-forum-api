@@ -14,14 +14,29 @@ namespace forum_api.Services
 
         public Topic CreateTopic(Topic topic)
         {
-            topic.CreationDate = DateTime.Now;
-            return _repository.CreateTopic(topic);
+            if (topic == null)
+            {
+                throw new Exception($"Le topic est null.");
+            }
+            else
+            {
+                topic.CreationDate = DateTime.Now;
+                return _repository.CreateTopic(topic);
+            }
         }
 
         public Topic DeleteById(int id)
         {
-            _= this.FindById(id);
-            return _repository.DeleteById(id);
+            if (id == null)
+            {
+                throw new Exception($"Aucun topic avec l'id {id}, n'a été trouvé.");
+            }
+            else
+            {
+                _ = this.FindById(id);
+                return _repository.DeleteById(id);
+            }
+            
         }
 
         public IEnumerable<Topic> FindAllTopics()
@@ -41,6 +56,10 @@ namespace forum_api.Services
 
         public Topic UpdateTopic(Topic topic)
         {
+            if (topic == null)
+            {
+                throw new Exception($"Mauvais topic, null.");
+            }
             topic.ModificationDate = DateTime.Now;
             return _repository.UpdateTopic(topic);
         }

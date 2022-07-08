@@ -1,5 +1,6 @@
 ﻿using forum_api.DataAccess.DataObjects;
 using forum_api.Repositories;
+using forum_api.Services;
 
 namespace forum_api.Services
 {

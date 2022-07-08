@@ -1,10 +1,11 @@
 ﻿using forum_api.DataAccess.DataObjects;
 using forum_api.Repositories;
 using System.IO;
+using forum_api.Services;
 
 namespace forum_api.Services
 {
-    public class WordFilterService
+    public class WordFilterService : IWordFilterService
     {
         private string[] _banWords;
 

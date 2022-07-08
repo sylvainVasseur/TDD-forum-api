@@ -1,15 +1,18 @@
 ﻿using forum_api.DataAccess.DataObjects;
 using forum_api.Repositories;
-using forum_api.Services;
 
 namespace forum_api.Services
 {
     public class CommentService : ICommentService
     {
         private ICommentRepository _repository;
-        public CommentService(ICommentRepository repository, ITopicService _topicService)
+        private readonly ITopicService _topicService;
+        private IWordFilterService _wordFilterService;
+        public CommentService(ICommentRepository repository, ITopicService topicService, IWordFilterService wordFilterService)
         {
             _repository = repository;
+            _topicService = topicService;
+            _wordFilterService = wordFilterService;
         }
 
         public Comment CreateComment(Comment comment)
@@ -20,6 +23,7 @@ namespace forum_api.Services
             }
             else
             {
+                comment.Content = _wordFilterService.WordFilterSentence(comment.Content);
                 comment.CreationDate = DateTime.Now;
                 return _repository.CreateComment(comment);
             }
@@ -61,6 +65,7 @@ namespace forum_api.Services
             {
                 throw new Exception($"Mauvais Comment, null.");
             }
+            comment.Content = _wordFilterService.WordFilterSentence(comment.Content);
             comment.ModificationDate = DateTime.Now;
             return _repository.UpdateComment(comment);
         }

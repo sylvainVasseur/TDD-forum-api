@@ -4,6 +4,6 @@ namespace forum_api.Services
 {
     public interface IWordFilterService
     {
-        string WorldFilterSentence(string sentence);
+        string WordFilterSentence(string sentence);
     }
 }

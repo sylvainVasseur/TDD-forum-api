@@ -6,10 +6,12 @@ namespace forum_api.Services
     public class TopicService : ITopicService
     {
         private ITopicRepository _repository;
+        private IWordFilterService _wordFilterService;
 
-        public TopicService(ITopicRepository repository)
+        public TopicService(ITopicRepository repository, IWordFilterService wordFilterService)
         {
             _repository = repository;
+            _wordFilterService = wordFilterService;
         }
 
         public Topic CreateTopic(Topic topic)
@@ -21,6 +23,11 @@ namespace forum_api.Services
             else
             {
                 topic.CreationDate = DateTime.Now;
+                topic.Title = _wordFilterService.WordFilterSentence(topic.Title);
+                foreach (var comment in topic.Comments)
+                {
+                    comment.Content = _wordFilterService.WordFilterSentence(comment.Content);
+                }
                 return _repository.CreateTopic(topic);
             }
         }
@@ -61,6 +68,12 @@ namespace forum_api.Services
                 throw new Exception($"Mauvais topic, null.");
             }
             topic.ModificationDate = DateTime.Now;
+            topic.Title = _wordFilterService.WordFilterSentence(topic.Title);
+            foreach (var comment in topic.Comments)
+            {
+                comment.Content = _wordFilterService.WordFilterSentence(comment.Content);
+            }
+
             return _repository.UpdateTopic(topic);
         }
 

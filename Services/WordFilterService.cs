@@ -9,14 +9,14 @@ namespace forum_api.Services
     {
         private string[] _banWords;
 
-        string filePath = @"..\insults.txt"; //C:\Users\corae\OneDrive\Bureau\projet forum\TDD-forum-api
+        string filePath = "C:\\code\\TestsUnitaire\\forum-api\\insults.txt"; //C:\Users\corae\OneDrive\Bureau\projet forum\TDD-forum-api
 
-        public CommentService()
+        public WordFilterService()
         {
             _banWords = File.ReadAllLines(filePath);
         }
 
-        public string FilterToolSentence(string sentence)
+        public string WordFilterSentence(string sentence)
         {
             bool isMotCensured = false;
             string newMot = "";
@@ -33,25 +33,21 @@ namespace forum_api.Services
                         {
                             newMot += "*";
 
-                            isMotCensured = true;
                         }
 
                         newMot += mot[mot.Length - 1];
 
                         //gère les insultes à deux lettres
-                        if (isMotCensured == false)
+                        if (mot.Length <= 2)
                         {
-                            newMot = "<(!) MOT BANNI (!)>";
-
-                            isMotCensured = false;
+                            newMot = "**";
                         }
 
                         sentence = sentence.Replace(mot, newMot);
                     }
                 }
-
-                return sentence;
             }
+            return sentence;
         }
     }
 }

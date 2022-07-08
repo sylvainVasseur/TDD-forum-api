@@ -11,7 +11,7 @@ namespace forum_api.Services
             _repository = repository;
         }
 
-        public void CreateComment(Comment comment)
+        public Comment CreateComment(Comment comment)
         {
             if (comment == null)
             {
@@ -20,14 +20,14 @@ namespace forum_api.Services
             else
             {
                 comment.CreationDate = DateTime.Now;
-                _repository.CreateComment(comment);
+                return _repository.CreateComment(comment);
             }
             
         }
 
-        public void DeleteComment(int id)
+        public Comment DeleteComment(int id)
         {
-            _repository.DeleteById(id);
+            return _repository.DeleteById(id);
         }
 
         public Comment FindById(int id)
@@ -50,10 +50,10 @@ namespace forum_api.Services
             return comment;
         }
 
-        public void UpdateComment(Comment comment)
+        public Comment UpdateComment(Comment comment)
         {
             comment.ModificationDate = DateTime.Now;
-            _repository.UpdateComment(comment);
+            return _repository.UpdateComment(comment);
         }
 
     }

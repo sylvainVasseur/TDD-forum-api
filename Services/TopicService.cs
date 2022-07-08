@@ -18,10 +18,10 @@ namespace forum_api.Services
             return _repository.CreateTopic(topic);
         }
 
-        public void DeleteById(int id)
+        public Topic DeleteById(int id)
         {
             _= this.FindById(id);
-            this._repository.DeleteById(id);
+            return _repository.DeleteById(id);
         }
 
         public IEnumerable<Topic> FindAllTopics()
@@ -39,10 +39,10 @@ namespace forum_api.Services
             return topic;
         }
 
-        public void UpdateTopic(Topic topic)
+        public Topic UpdateTopic(Topic topic)
         {
             topic.ModificationDate = DateTime.Now;
-            _repository.UpdateTopic(topic);
+            return _repository.UpdateTopic(topic);
         }
 
     }

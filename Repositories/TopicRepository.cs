@@ -34,18 +34,20 @@ namespace forum_api.Repositories
             return topics;
         }
 
-        public void DeleteById(int id)
+        public Topic DeleteById(int id)
         {
             Topic topic = _context.Topics.Find(id);
             _context.Topics.Remove(topic);
             _context.SaveChanges();
+            return topic;
 
 
         }
-        public void UpdateTopic(Topic topic)
+        public Topic UpdateTopic(Topic topic)
         {
             _context.Topics.Update(topic);
             _context.SaveChanges();
+            return topic;
         }
 
         public Topic CreateTopic(Topic topic)
@@ -54,5 +56,6 @@ namespace forum_api.Repositories
             _context.SaveChanges();
             return topic;
         }
+        
     }
 }

@@ -6,8 +6,8 @@ namespace forum_api.Repositories
     {
         Comment FindById(int id);
         List<Comment> FindByTopicId(int TpId);
-        void UpdateComment(Comment comment);
-        void CreateComment(Comment comment);
-        void DeleteById(int id);
+        Comment UpdateComment(Comment comment);
+        Comment CreateComment(Comment comment);
+        Comment DeleteById(int id);
     }
 }
